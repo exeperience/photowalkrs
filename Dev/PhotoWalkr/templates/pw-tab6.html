@@ -1,0 +1,10 @@
+<div class="pw-grp-info">
+	<div class="pw-grp-name" id="pw-grp-name">{{ photowalk.group.name }}</div>
+    <div class="pw-grp-stt">Photowalk #<span>{{ photowalk.group.stats.num_photowalks }}</span>	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	Members in this Photowalk <span>{{ photowalk.memcount }}</span></div>
+    <div class="pw-grp-stt">Total Photowalks <span>{{ photowalk.group.stats.num_photowalks }}</span>	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	Total Members <span>{{ photowalk.group.stats.num_members }}</span></div>
+</div>
+<div class="pw-fun-photos"></div>
+<script>
+	$(".pw-fun-photos").load('/photolist/photowalk/{{ photowalk.id }}/0');					
+</script>
+

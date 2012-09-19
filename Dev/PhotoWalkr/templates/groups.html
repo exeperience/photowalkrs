@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block content %}
+ 
+<div class="submenu">
+ 
+        <div class="sitems">
+            <div class="now">Following</div>
+            <div>Popular</div>
+            <div>Recent</div>
+            <div>Featured</div>
+            <div>Near Me</div>
+            <div>Groups</div>
+        </div>
+        
+        <div class="desc">
+            <p class="decs">Groups that you are following</p>
+            <p class="decs">Groups that are <span>Popular</span> right now</p>
+            <p class="decs">Groups that are from <span>Everyone</span> right now</p>
+            <p class="decs">Groups that are <span>Featured</span> right now</p>
+            <p class="decs">Groups that are <span>Near Me</span> right now</p>
+            <p class="test"></p>
+        </div>
+</div>
+ 
+ 
+				<!--Groups Container-->
+               <div class="grp-container">
+               {% for group in groups %}
+	
+                        	<div class="grp-thumbs">
+                        	{% load thumbnail %}
+                        	{% thumbnail group.display_image  "58x58" crop="center" as thumb %}
+                                <img class="grp-img" src="{{ MEDIA_URL }}/{{ thumb.name }}"/>
+                                {% endthumbnail %}
+                                <div class="grp-score">{{ group.stats.score }}</div>
+                                <div class="grp-details">
+                                    <div class="grp-nam">{{ group.name }}</div>
+                                    <img class="grp-level" src="{{ STATIC_URL }}images/grp-level.png" />
+                                    <a href="/group/{{ group.id }}"><div class="join-button">View</div></a>
+                                    
+                                    <div class="grp-loc dsc">{{ group.location_text }}</div>
+                                    <div class="grp-dsc dsc">{{ group.info }}</div>                            
+                                </div>
+               
+                                <div class="grp-menu">
+                                    <div class="grp-members"><span>{{ group.stats.num_members }}</span></br>Members</div>
+                                    <div class="grp-pgraphs"><span>{{ group.stats.num_photos }}</span></br>Photographs</div>
+                                    <div class="grp-pwalks"><span>{{ group.stats.num_photowalks }}</span></br>Photowalks</div>
+                                    <div class="grp-tips"><span></span></br>Tips n Tricks</div>                                
+                                </div>   
+                            </div><!--End of Group Thumb--> 
+               {% endfor %}    
+                          
+                </div>
+                
+              <!--the animation -->
+				<script type="text/javascript" src="{{ STATIC_URL }}js/animation.js"></script>
+        		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+ 
+{% endblock %}

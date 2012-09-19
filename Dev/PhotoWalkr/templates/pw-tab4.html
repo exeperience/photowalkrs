@@ -1,0 +1,12 @@
+<form action="#" id='subsearch' method='get'>
+<input type='submit' value="&nbsp;"/>
+<input type='text' name='event' value="Search Members"/>
+</form>
+
+<div class="tb-desc"><span>Following people went on this photowalk</span></div>
+
+<div class="pw-members"></div>
+
+<script>
+	$(".pw-members").load('/userlist/photowalk/{{ pwid }}/');					
+</script>

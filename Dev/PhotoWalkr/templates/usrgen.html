@@ -1,0 +1,12 @@
+                                    {% for user in users %}
+                                    <a href="#"><div class="usr-thumb" >
+                                            {% load thumbnail%}
+                                            {% thumbnail user.display_image  "58x58" crop="center" as thumb %}
+                                        	<img class="usr-pic" src="{{ MEDIA_URL }}/{{ thumb.name }}"/>
+                                        	{% endthumbnail %}
+                                            <div class="usr-about">
+                                            	<div class="mem-name">{{ user.user.username }}</div>
+                                                <div class="mem-score"><span>{{ user.stats.score }}</span></br>Score</div>
+                                            </div>
+                                    </div></a>
+                                    {% endfor %}

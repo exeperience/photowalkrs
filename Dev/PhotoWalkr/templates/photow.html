@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+{% block content %}
+
+<script>
+/*main menu selection jqeury*/
+	$(".photowalks").ready(function() {
+  		$(".photowalks").addClass("selected");
+    });
+</script>
+
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/pw.css" />
+
+<div class="submenu">
+ 
+<div class="sitems">
+<div class="now">Following</div>
+<div>Popular</div>
+<div>Recent</div>
+<div>Featured</div>
+<div>Near Me</div>
+<div>Groups</div>
+</div>
+
+<!--div class="desc">
+<p class="decs">Photowalks from the people you are following</p>
+<p class="decs">Photos that are <span>Popular</span> right now</p>
+<p class="decs">Photos that are from <span>Everyone</span> right now</p>
+<p class="decs">Photos that are <span>Featured</span> right now</p>
+<p class="decs">Photos that are <span>Near Me</span> right now</p>
+<p class="test"></p>
+</div-->
+
+</div>
+ 
+<div class="upload_form"></div>
+ 
+ 
+				<!--The Photowalks Container-->
+<div class="pwalks">
+		{% for photowalk in photowalks.object_list %}
+                <a href="/photowalk/{{ photowalk.id }}/">
+                <div id="pw-thumb">
+               
+                {% for user in photowalk.users %}
+                        
+                        <div id="tab{{ user.i }}" class="tabbox">
+                                {% load thumbnail %}
+                     		{% thumbnail user.display_image  "58x58" crop="center" as thumb %}
+                                <h3><img src="{{ MEDIA_URL }}/{{ thumb.name }}"/></h3>
+                                {% endthumbnail %}
+                                <div class="tabcontent">
+                                {% load thumbnail %}
+                     		{% thumbnail user.photo.photo  "580x325" crop="center" as thumb %}
+                                    <img src="{{ MEDIA_URL }}/{{ thumb.name }}" class="pw-img"/>
+                                {% endthumbnail %}
+                                </div>
+                        </div>
+                {% endfor %}
+                        
+                            <div id="tab10" class="tabbox">
+                                {% if overflow %}<h3></br>+<span>10</span> More</h3>{% endif %}
+                                <div class="tabcontent">
+                                    <div class="pw-name"></br>{{ photowalk.name }}</div>
+                                    <div class="stat-mask">
+                                    {% load thumbnail %}
+                     		    {% thumbnail photowalk.group.display_image  "58x58" crop="center" as thumb %}
+                                    <img class="grp-logo" src="{{ MEDIA_URL }}/{{ thumb.name }}" />
+                                    {% endthumbnail %}
+                                                <div class="pw-details">
+                                                    <div class="grp-name">{{ photowalk.group.name }}</div>
+                                                    <p class="pw-theme">Black and White</p>
+                                                    {% load humanize %}
+                                                    <p class="pw-when">{{ photowalk.date|timesince }} ago</p>
+                                                    <p class="pw-where">{{ photowalk.location }}</p>
+                                                    <div class="pw-ppl stat">{{ photowalk.stats.num_participants }}</div>
+                                                    <div class="pw-clicks stat">{{ photowalk.stats.views }}</div>
+                                                    <div class="pw-likes stat">{{ photowalk.stats.likes }}</div>
+                                                </div>
+                                                <div class="pw-score">{{ photowalk.stats.score }}</div>
+                                    </div>
+                                {% load thumbnail %}
+                     		{% thumbnail photowalk.photo.photo  "580x325" crop="center" as thumb %}	
+                                        <img src="{{ MEDIA_URL }}/{{ thumb.name }}" class="pw-img"/>                
+                                {% endthumbnail %}
+                                </div>
+                            </div>
+                        </div>
+                
+
+               {% endfor %}
+               </div>
+
+<script>
+$("div.desc > p").hide();
+$("div.desc > p:nth-child(1)").fadeIn("slow");
+$('.imgs').load('1.html');
+ 
+    $("div.sitems > div").click(function() {
+        var index = $(this).index();
+		$(this).parent().children().removeClass("now");
+  		$("div.desc > p").hide();
+  		$("div.desc > p").eq(index-6).fadeIn("slow");
+  		$(this).addClass("now");
+		$('.imgs').load((index+1)+'.html');
+    });
+	$("#trans-nav > li").children().children().click(function() {
+        var index = $(this).index();
+		$("div.sitems").children().removeClass("now");
+  		$("div.desc > p").hide();
+  		$("div.desc > p").eq(index-6).fadeIn("slow");
+  		$("div.sitems > div").eq(index).addClass("now");
+		$('.imgs').load((index+1)+'.html');
+    });
+	
+	$(".pw-walkers > img").hover(
+  	function () {
+    	$(this).append($("<span> ***</span>"));
+ 	}, 
+  	function () {
+    	$(this).find("span:last").remove();
+  	}
+	);
+</script>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<script type="text/javascript"
+ src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js">
+</script>
+<script type="text/javascript">
+
+$(document).ready(function() {
+	$('#like').click(function() {
+		$.get('/like/photo/{{ photo.id }}', function(data){});
+	});
+});
+
+</script>
+
+<div>
+
+	{% load thumbnail %}
+    	{% thumbnail photo.photo  "800x600" crop="center" as thumb %}
+        	<a href="{{ MEDIA_URL }}/{{ photo.photo.name }}"><img border="0" alt="" src="{{ MEDIA_URL }}/{{ thumb.name }}"/></a>
+        {% endthumbnail %}
+</div>
+<div>
+<button id = "like" >LIKE</button>
+</div>
+
+{% endblock %}

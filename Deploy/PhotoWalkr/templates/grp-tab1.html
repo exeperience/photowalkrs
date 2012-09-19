@@ -1,0 +1,23 @@
+								<div id="grp-members">
+                                	<div class="grp-subhead">
+                                        <ul class="grp-subnav">
+                                            <li>Top</li>
+                                            <li>New</li>
+                                            <li>Alphabetical</li>
+                                        </ul>                                        
+                                    </div>
+                                    
+                                    <div class="grp-usrs"></div>
+                                        
+                                </div>
+                                
+                                <script>
+								$(".grp-subnav > li").eq(0).addClass("sel");
+								$("div.grp-usrs").load('/userlist/group/{{ group.id }}/');
+                                $(".grp-subnav > li").click(function() {
+									var index = $(this).index();
+									$(this).parent().children().removeClass("sel");
+									$(this).addClass("sel");
+									$("div.grp-usrs").load('usrgen.html');				
+								});
+								</script>

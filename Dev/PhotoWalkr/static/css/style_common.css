@@ -1,0 +1,138 @@
+.view {
+   /*width: 300px;
+   height: 222px;*/
+   /*width: 210px;
+   height: 158px;*/
+   width: 390px;
+   height: 260px;
+   float: left;
+   margin-right:30px;
+   margin-bottom:30px;
+   //border:solid 5px #ffffff;
+   overflow: hidden;
+   position: relative;
+   //text-align: center;
+   -moz-box-shadow:    0px 3px 5px 3px #ccc;
+   -webkit-box-shadow: 0px 3px 5px 3px #ccc;
+   box-shadow:         0px 3px 5px 3px #ccc;
+   cursor: pointer;
+   font-family: Arial, Georgia, serif;
+   /*background: #fff url(../images/bgimg.jpg) no-repeat center center;*/
+}
+.view .mask,.view .content {
+   width: 390px;
+   height: 260px;
+   position: absolute;
+   overflow: hidden;
+   top: 0;
+   left: 0;
+   padding:25px;
+}
+.view img {
+   display: block;
+   position: relative;
+   /*width:300px;
+   height:222px;*/
+}
+
+.mask .usr-disp{
+	width:50px;
+	height:50px;
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
+	border-radius: 6px;
+	float:left;
+}
+
+.ph-info {
+	font-family:Arial, Helvetica, sans-serif;
+   color: #fff;
+   text-align: left;
+   position: relative;
+   font-size: 18px;
+   margin-left:20px;
+   top:-10px;
+   float:left;
+}
+
+.ph-info h2 {
+   color: #fff;
+   text-align: left;
+   position: relative;
+   font-size: 18px;
+}
+
+.ph-info h3{
+   color: #fff;
+   text-align: left;
+   position: relative;
+   font-size: 12px;
+   /*margin-left:20px;*/
+   top:-10px;
+}
+.view p.img-dsc {
+   font-family: Arial, Georgia, serif;
+   //font-style: italic;
+   font-size: 12px;
+   position: relative;
+   color: #fff;
+   //padding: 10px 20px 20px;
+   text-align:justify;
+   clear:both;
+   margin-right:50px;
+   text-decoration:none;
+}
+
+.mask p.pw-name {
+   font-family: Arial, Georgia, serif;
+   font-size: 18px;
+   width:300px;
+   top:160px;
+   left:25px;
+   position: absolute;
+   color: #fff;
+   text-align: left;
+   background:url(../images/footsteps.png) top left no-repeat;
+   height:33px;
+   padding-left:40px;
+   padding-top:6px;
+}
+
+.mask div.ph-stats {
+   font-family: Arial, Georgia, serif;
+   font-size: 15px;
+   position: absolute;
+   color: #fff;
+   height:18px;
+   padding-left:25px;
+   top:215px;
+   float:left;
+   margin-left:7px;
+   margin-right:5px;
+}
+
+.mask div.ph-views {
+   background:url(../images/ph-views.png) top left no-repeat;
+   
+}
+
+.mask div.ph-likes {
+   background:url(../images/ph-likes.png) top left no-repeat;
+   left:80px;
+ 
+}
+
+.view a.info {
+   text-decoration: none;
+   color: #fff;
+   position:absolute;
+   left:290px;
+   top:165px;
+   font-size:73px;
+   
+}
+.view a.info: hover {
+   -webkit-box-shadow: 0 0 5px #000;
+   -moz-box-shadow: 0 0 5px #000;
+   box-shadow: 0 0 5px #000;
+}

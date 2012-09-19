@@ -1,0 +1,32 @@
+{% for photo in photos.object_list %}
+		{% load thumbnail %}
+		{% thumbnail photo.photo "390x260" crop="center" as thumb %}
+                <!--<a href="/photo/{{ photo.id }}">
+                <div class="imgs">
+                <div class="view view-first">
+                    <img src="{{ MEDIA_URL }}/{{ thumb.name }}" />
+                    <div class="mask">
+                    </div>
+                </div>
+                </a>
+		</div>-->
+		<div class="view view-first">
+                    	<img src="{{ MEDIA_URL }}/{{ thumb.name }}" />
+		{% endthumbnail %}
+                    	<div class="mask">
+                    	{% load thumbnail %}
+		        {% thumbnail photo.userprofile.display_image "58x58" crop="center" as thumb %}
+                        	<img src="{{MEDIA_URL}}/{{thumb.name}}" class="usr-disp"/>
+                        {% endthumbnail %}
+                        	<div class="ph-info">
+                            	<h2 class="img-title">{{ photo.title }}</h2>
+                            	<h3 class="usr-name">{{ photo.userprofile.user.username }}</h3>
+                            </div>
+                        	<p class="img-dsc">{{ photo.description }}</p>
+			     <p class="pw-name">{{ photo.title }}</p>
+                            <div class="ph-views ph-stats">{{ photo.stats.views }}</div>
+                            <div class="ph-likes ph-stats">{{ photo.stats.likes }}</div>
+                        <a href="#" class="info ph-score">{{ photo.stats.score }}</a>
+                    	</div>
+                	</div>
+		{% endfor %}

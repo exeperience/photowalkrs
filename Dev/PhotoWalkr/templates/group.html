@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+{% block content %}
+
+<script>
+/*main menu selection jqeury*/
+	$(".groups").ready(function() {
+  		$(".groups").addClass("selected");
+    });
+</script>
+                
+                
+               <!--Group Profile Container-->
+               <div class="grp-profile">
+	
+                        	<div class="grp-thumb">
+                                {% load thumbnail %}
+                        	{% thumbnail group.display_image  "58x58" crop="center" as thumb %}
+                                <img class="grp-img" src="{{ MEDIA_URL }}/{{ thumb.name }}">
+                                {% endthumbnail %}
+                                <div class="grp-score">{{ group.stats.score }}</div>
+                                <div class="grp-details">
+                                    <div class="grp-nam">{{ group.name }}</div>
+                                    <img class="grp-level" src="{{ STATIC_URL }}images/grp-level.png" />
+                                    <div class="join-button">Join</div>
+                                    
+                                    <div class="grp-loc dsc">{{ group.location_text }}</div>
+                                    <div class="grp-dsc dsc">{{ group.info }}</div>                            
+                                </div>
+               
+                                <div class="grp-menu">
+                                    <div class="grp-members"><span>{{ group.stats.num_members }}</span></br>Members</div>
+                                    <div class="grp-pgraphs"><span>{{ group.stats.num_photos }}</span></br>Photographs</div>
+                                    <div class="grp-pwalks"><span>{{ group.stats.num_photos }}</span></br>Photowalks</div>
+                                    <div class="grp-tips"><span></span></br>Tips n Tricks</div>                                
+                                </div>   
+                            </div><!--End of Group Thumb--> 
+                            
+                            <div class="grp-map" id="grp-map"><img src="http://maps.googleapis.com/maps/api/staticmap?center={{ group.location_text }}&zoom=14&size=464x232&maptype=roadmap&markers=color:blue%7Clabel:S%7C40.702147,72.856178&markers=color:green%7Clabel:G%7C40.711614,-74.012318&markers=color:red%7Ccolor:red%7Clabel:C%7C40.718217,-73.998284&sensor=false"></div>
+                            
+                            <div class="grp-feature"></div>
+                            <div id="grp-maps"></div>
+                     </div>
+				<!--the animation -->
+                <script>
+
+					$("div.grp-feature").hide();
+					//$("#grp-maps").delay(10000).hide();
+					$(".grp-menu > div").click(function() {
+						var index = $(this).index();
+						$(this).parent().children().removeClass("grp-select");
+						$(this).addClass("grp-select");	
+						$("#grp-maps").hide();
+						$("div.grp-feature").show();				
+						$("div.grp-feature").load((index+1)+'/');			
+				    });
+					$("#grp-map").click(function() {
+						$("div.grp-feature").hide();
+						$("#grp-maps").show();
+						$(".grp-menu").children().removeClass("grp-select");
+						/*$("div.grp-feature > div").hide();*/
+						//$("div.grp-feature").load('grp-tab5.html');					
+				    });
+					/*$(".grp-subnav > li").click(function() {
+						var index = $(this).index();
+						$(this).parent().children().removeClass("sel");
+						$(this).addClass("sel");				
+				    });*/
+				</script>
+				<script type="text/javascript" src="{{ STATIC_URL }}js/animation.js"></script>
+        		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+                <script type="text/javascript" src="http://maps.google.com/maps?file=api&amp;v=2&amp;key={{ GMAP_KEY }}"></script>
+
+		<!--script type="text/javascript">
+			window.onunload = function(){
+				GUnload();
+			}
+
+			window.onload = function(){
+				if (GBrowserIsCompatible()) {
+
+					var map = new GMap2(document.getElementById('grp-maps'));
+					map.setCenter(new GLatLng(23.0, 54.0), 6);
+					map.setUIToDefault();
+					var id;
+					var markers = {};
+					var addMarker = function () {
+						marker = new google.maps.Marker({ 
+							position: GLatLng(23.0, 54.0),
+							map: map,
+							draggable: true,
+							animation: google.maps.Animation.DROP
+						});
+						map.panTo(Gpoint);
+						id = marker.__gm_id
+						markers[id] = marker; 	
+						google.maps.event.addListener(marker, "rightclick", function (point) { id = this.__gm_id; delMarker(id) });
+					}		
+					var delMarker = function (id) {
+						marker = markers[id]; 
+						marker.setMap(null);
+					}
+					var marker = new GMarker(new GLatLng(23.0, 54.0), {
+							draggable: true, 
+							title: 'Drag me'
+						});
+					GEvent.addListener(marker, "click", function() {
+					    marker.openInfoWindow('Photowalk Location');
+					});
+					GEvent.addListener(marker, "dragstart", function() {
+						map.closeInfoWindow();
+					});
+					map.addOverlay(marker);
+				}
+			}			
+
+		</script-->
+{% endblock %}	

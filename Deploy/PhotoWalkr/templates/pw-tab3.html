@@ -1,0 +1,22 @@
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}/css/main.css" />
+
+<!--form action="#" id='subsearch' method='get'>
+<input type='submit' value="&nbsp;"/>
+<input type='text' name='event' value="Search Everyone's Photos"/>
+</form-->
+
+{% if user.id %}
+	<div class="tb-desc"><span>{{ user.user.username }}'s</span> photos from this Photowalk</div>
+{% else %}
+	<div class="tb-desc"><span>All</span> photos from this Photowalk</div>
+{% endif %}
+
+<div class="pw-photos"></div>
+
+<script>
+	{% if user.id %}
+		$(".pw-photos").load('/photolist/photowalk/{{ pwid }}/{{ user.user.id }}');
+	{% else %}
+		$(".pw-photos").load('/photolist/photowalk/{{ pwid }}/0');
+	{% endif %}
+</script>

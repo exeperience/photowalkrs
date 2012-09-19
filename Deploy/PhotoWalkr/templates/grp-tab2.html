@@ -1,0 +1,23 @@
+			                        <div id="grp-pgraphs">
+                                	<div class="grp-subhead">
+                                        <ul class="grp-subnav">
+                                            <li>Top</li>
+                                            <li>Recent</li>
+                                            <li>Random</li>
+                                        </ul>                                        
+                                    </div>
+                                    
+                                    <div class="grp-ph"></div>
+            </div>
+            
+               					<script>
+								$(".grp-subnav > li").eq(0).addClass("sel");
+								$("div.grp-ph").load('/photolist/group/{{ group.id }}/');
+                                $(".grp-subnav > li").click(function() {
+									var index = $(this).index();
+									$(this).parent().children().removeClass("sel");
+									$(this).addClass("sel");
+									$("div.grp-ph").load('phgen.html');				
+								});
+								</script>
+                               

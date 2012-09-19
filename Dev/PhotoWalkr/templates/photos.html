@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+{% block content %}
+
+<script>
+/*main menu selection jqeury*/
+	$(".photos").ready(function() {
+  		$(".photos").addClass("selected");
+    });
+</script>
+
+<div class="submenu">
+ 
+<div class="sitems">
+<div class="now">Following</div>
+<div>Popular</div>
+<div>Everyone</div>
+<div>Featured</div>
+<div>Near Me</div>
+</div>
+
+<div class="desc">
+<p class="decs">Photos from the people you are following</p>
+<p class="decs">Photos that are <span>Popular</span> right now</p>
+<p class="decs">Photos that are from <span>Everyone</span> right now</p>
+<p class="decs">Photos that are <span>Featured</span> right now</p>
+<p class="decs">Photos that are <span>Near Me</span> right now</p>
+<p class="test"></p>
+</div>
+
+</div>
+ 
+<div class="upload_form"></div>
+
+<script>
+$("div.desc > p").hide();
+$("div.desc > p:nth-child(1)").fadeIn("slow");
+
+    $("div.sitems > div").click(function() {
+        var index = $(this).index();
+		$(this).parent().children().removeClass("now");
+  		$("div.desc > p").hide();
+  		$("div.desc > p").eq(index-6).fadeIn("slow");
+  		$(this).addClass("now");
+    });
+	 $("#trans-nav > li").children().children().click(function() {
+        var index = $(this).index();
+		$("div.sitems").children().removeClass("now");
+  		$("div.desc > p").hide();
+  		$("div.desc > p").eq(index-6).fadeIn("slow");
+  		$("div.sitems > div").eq(index).addClass("now");
+    });
+</script>
+
+</div>
+				<!--The Image Container-->
+		{% for photo in photos.object_list %}
+		<a href="/photo/{{ photo.id }}">
+		{% load thumbnail %}
+		{% thumbnail photo.photo "390x260" crop="center" as thumb %}
+                <!--<a href="/photo/{{ photo.id }}">
+                <div class="imgs">
+                <div class="view view-first">
+                    <img src="{{ MEDIA_URL }}/{{ thumb.name }}" />
+                    <div class="mask">
+                    </div>
+                </div>
+                </a>
+		</div>-->
+		<div class="imgs" id="imgs">
+		<div class="view view-first">
+                    	<img src="{{ MEDIA_URL }}/{{ thumb.name }}" />
+		{% endthumbnail %}
+                    	<div class="mask">
+                    	{% load thumbnail %}
+		        {% thumbnail photo.userprofile.display_image "58x58" crop="center" as thumb %}
+                        	<img src="{{MEDIA_URL}}/{{thumb.name}}" class="usr-disp"/>
+                        {% endthumbnail %}
+                        	<div class="ph-info">
+                            	<h2 class="img-title">{{ photo.title }}</h2>
+                            	<h3 class="usr-name">{{ photo.userprofile.user.username }}</h3>
+                            </div>
+                        	<p class="img-dsc">{{ photo.description }}</p>
+			     <p class="pw-name">{{ photo.title }}</p>
+                            <div class="ph-views ph-stats">{{ photo.stats.views }}</div>
+                            <div class="ph-likes ph-stats">{{ photo.stats.likes }}</div>
+                        <a href="#" class="info ph-score">{{ photo.stats.score }}</a>
+                    	</div>
+                	</div>
+                	</div>
+        </a>
+		{% endfor %}
+<script>
+$("div.desc > p").hide();
+$("div.desc > p:nth-child(1)").fadeIn("slow");
+/*$('.imgs').load('1.html');*/
+ 
+    $("div.sitems > div").click(function() {
+        var index = $(this).index();
+		$(this).parent().children().removeClass("now");
+  		$("div.desc > p").hide();
+  		$("div.desc > p").eq(index-6).fadeIn("slow");
+  		$(this).addClass("now");
+		$('.imgs').load('/testload/');
+        /*$("p.test").show();
+		$("p.test").html("Index " + index + " was clicked");*/
+    });
+	 $("#trans-nav > li").children().children().click(function() {
+        var index = $(this).index();
+		$("div.sitems").children().removeClass("now");
+  		$("div.desc > p").hide();
+  		$("div.desc > p").eq(index-6).fadeIn("slow");
+  		$("div.sitems > div").eq(index).addClass("now");
+		$('.imgs').load((index+1)+'.html');
+    });
+</script>
+{% endblock %}

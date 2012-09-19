@@ -1,0 +1,176 @@
+@charset "utf-8";
+/* CSS Document */
+
+		.pwalks{
+			width:1260px;
+			margin-left:60px;
+			font-family:Arial, Helvetica, sans-serif;
+		}
+		#pw-thumb{ position:relative; width:580px; height:325px; margin-bottom:105px; margin-right:50px; float:left; display:inline-block;}
+		#pw-thumb h3{
+			width:58px;	
+			height:58px;
+			top:325px;
+			text-align:center;
+		    cursor:pointer;
+			display:block; 	
+			font-size:16px;
+			font-weight:bold;
+			margin:0;
+			position:absolute;
+			-ms-filter: "progid: DXImageTransform.Microsoft.Alpha(Opacity=0.2)";
+   			filter: alpha(opacity=0.2);
+   			opacity: 0.2;
+		}
+		
+				
+			
+		#pw-thumb h3:hover{
+			-ms-filter: "progid: DXImageTransform.Microsoft.Alpha(Opacity=1)";
+   			filter: alpha(opacity=1);
+   			opacity: 1;
+	
+		}
+		
+		#pw-thumb h3{-webkit-transition : opacity 0.2s ease-in; -moz-transition : opacity 0.2s ease-in;}
+		#pw-thumb:hover #tab10 .tabcontent{
+			-ms-filter: "progid: DXImageTransform.Microsoft.Alpha(Opacity=0)";
+   			filter: alpha(opacity=0);
+   			opacity: 0;
+		}
+		
+		#pw-thumb #tab10:hover .tabcontent{
+			-ms-filter: "progid: DXImageTransform.Microsoft.Alpha(Opacity=1)";
+   			filter: alpha(opacity=1);
+   			opacity: 1;
+		}
+		
+		
+				
+
+		.tabcontent{
+			//padding:10px 0 0 40px;
+			width:100%;
+			background:#fff;
+			//border:1px solid #000;
+			position:absolute;
+			left:0;
+			top:0px;
+			height:325px;
+			display:block;
+			margin:0;
+			-moz-box-shadow:    0px 2px 5px 0px #333;
+   			-webkit-box-shadow: 0px 2px 5px 0px #333;
+   			box-shadow:         0px 2px 5px 0px #333;
+		}
+		
+		.pw-name{
+			background-color: rgba(0,0,0, 0.8);
+			padding-left:20px;
+			height:42px;
+			width:560px;
+			color:#FFF;
+			font-size:18px;
+			position:absolute;
+			top:0px;
+			left:0px;
+			line-height:14px;
+			z-index:44;
+		}
+		
+		.stat-mask{
+			background-color: rgba(0,0,0, 0.8);
+			height:325px;
+			width:580px;
+			color:#FFF;
+			font-size:18px;
+			position:absolute;
+			top:0px;
+			left:0px;
+			line-height:14px;
+			-ms-filter: "progid: DXImageTransform.Microsoft.Alpha(Opacity=0)";
+   			filter: alpha(opacity=0);
+   			opacity: 0;
+			z-index:22;
+		}
+		
+		.stat-mask:hover{
+			-ms-filter: "progid: DXImageTransform.Microsoft.Alpha(Opacity=01)";
+   			filter: alpha(opacity=1);
+   			opacity: 1;
+		}
+		
+		.stat-mask{
+			-webkit-transition: all 0.4s ease-in-out;
+   			-moz-transition: all 0.4s ease-in-out;
+  			 -o-transition: all 0.4s ease-in-out;
+   			-ms-transition: all 0.4s ease-in-out;
+   			transition: all 0.4s ease-in-out;
+		}
+		
+ 		#tab1 .tabcontent{z-index:5;opacity:0;}
+		#tab2 .tabcontent{z-index:5;opacity:0;}
+		#tab3 .tabcontent{z-index:5;opacity:0;}
+		#tab4 .tabcontent{z-index:5;opacity:0;}
+		#tab5 .tabcontent{z-index:5;opacity:0;}
+		#tab6 .tabcontent{z-index:5;opacity:0;}
+		#tab7 .tabcontent{z-index:5;opacity:0;}
+		#tab8 .tabcontent{z-index:5;opacity:0;}
+		#tab9 .tabcontent{z-index:5;opacity:0;}
+		#tab10 .tabcontent{z-index:6;}
+		
+		#tab1 h3{left:0px;}
+		#tab2 h3{left:58px;}
+		#tab3 h3{left:116px;}
+		#tab4 h3{left:174px;}
+		#tab5 h3{left:232px;}
+		#tab6 h3{left:290px;}
+		#tab7 h3{left:348px;}
+		#tab8 h3{left:406px;}
+		#tab9 h3{left:464px;}
+		#tab10 h3{left:522px; color:#FFF; background-color:#999; line-height:15px; text-align:center;}
+		#tab10 h3 span{color:#FFF; font-size:25px; font-weight:bold;}
+		
+		
+
+		/*#pw-thumb:hover h3, #tabs:focus h3, #tabs:active h3{
+			background:none;
+			z-index:0;
+			}*/
+
+		/*#pw-thumb:hover .tabcontent, #tabs:focus .tabcontent, #tabs:active .tabcontent{
+			z-index:0;
+			opacity:0;
+			-webkit-transition : opacity .75s ease-in;
+			-moz-transition : opacity .75s ease-in;
+			}*/
+
+		#tab1:hover h3,#tab1:focus h3,#tab1:active h3,
+		#tab2:hover h3,#tab2:focus h3,#tab2:active h3,
+		#tab3:hover h3,#tab3:focus h3,#tab3:active h3,
+		#tab4:hover h3,#tab4:focus h3,#tab4:active h3,
+		#tab5:hover h3,#tab5:focus h3,#tab5:active h3,
+		#tab6:hover h3,#tab6:focus h3,#tab6:active h3,
+		#tab7:hover h3,#tab7:focus h3,#tab7:active h3,
+		#tab8:hover h3,#tab8:focus h3,#tab8:active h3,
+		#tab9:hover h3,#tab9:focus h3,#tab9:active h3,
+		#tab10:hover h3,#tab10:focus h3,#tab10:active h3{
+			z-index:1;
+			-ms-filter: "progid: DXImageTransform.Microsoft.Alpha(Opacity=1)";
+   			filter: alpha(opacity=1);
+   			opacity: 1;
+			color:#FFF;
+			background-color:#999;
+		}
+			
+		#tab1:hover .tabcontent,#tab1:focus .tabcontent,#tab1:active .tabcontent,
+		#tab2:hover .tabcontent,#tab2:focus .tabcontent,#tab2:active .tabcontent,
+		#tab3:hover .tabcontent,#tab3:focus .tabcontent,#tab3:active .tabcontent,
+		#tab4:hover .tabcontent,#tab4:focus .tabcontent,#tab4:active .tabcontent,
+		#tab5:hover .tabcontent,#tab5:focus .tabcontent,#tab5:active .tabcontent,
+		#tab6:hover .tabcontent,#tab6:focus .tabcontent,#tab6:active .tabcontent,
+		#tab7:hover .tabcontent,#tab7:focus .tabcontent,#tab7:active .tabcontent,
+		#tab8:hover .tabcontent,#tab3:focus .tabcontent,#tab3:active .tabcontent,
+		#tab9:hover .tabcontent,#tab9:focus .tabcontent,#tab9:active .tabcontent,
+		#tab10:hover .tabcontent,#tab10:focus .tabcontent,#tab10:active .tabcontent
+		{	z-index:7;	background:#fff; opacity:1; -webkit-transition : opacity 0.5s ease-in; -moz-transition : opacity 0.5s ease-in;}

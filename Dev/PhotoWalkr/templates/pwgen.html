@@ -1,0 +1,52 @@
+        {% for photowalk in photowalks.object_list %}
+                <a href="/photowalk/{{ photowalk.id }}/">
+                <div id="pw-thumb">
+               
+                {% for user in photowalk.users %}
+                        
+                        <div id="tab{{ user.i }}" class="tabbox">
+                                {% load thumbnail %}
+                            {% thumbnail user.display_image  "58x58" crop="center" as thumb %}
+                                <h3><img src="{{ MEDIA_URL }}/{{ thumb.name }}"/></h3>
+                                {% endthumbnail %}
+                                <div class="tabcontent">
+                                {% load thumbnail %}
+                            {% thumbnail user.photo.photo  "580x325" crop="center" as thumb %}
+                                    <img src="{{ MEDIA_URL }}/{{ thumb.name }}" class="pw-img"/>
+                                {% endthumbnail %}
+                                </div>
+                        </div>
+                {% endfor %}
+                        
+                            <div id="tab10" class="tabbox">
+                                {% if overflow %}<h3></br>+<span>10</span> More</h3>{% endif %}
+                                <div class="tabcontent">
+                                    <div class="pw-name"></br>{{ photowalk.name }}</div>
+                                    <div class="stat-mask">
+                                    {% load thumbnail %}
+                                {% thumbnail photowalk.group.display_image  "58x58" crop="center" as thumb %}
+                                    <img class="grp-logo" src="{{ MEDIA_URL }}/{{ thumb.name }}" />
+                                    {% endthumbnail %}
+                                                <div class="pw-details">
+                                                    <div class="grp-name">{{ photowalk.group.name }}</div>
+                                                    <p class="pw-theme">Black and White</p>
+                                                    {% load humanize %}
+                                                    <p class="pw-when">{{ photowalk.date|timesince }} ago</p>
+                                                    <p class="pw-where">{{ photowalk.location }}</p>
+                                                    <div class="pw-ppl stat">{{ photowalk.stats.num_participants }}</div>
+                                                    <div class="pw-clicks stat">{{ photowalk.stats.views }}</div>
+                                                    <div class="pw-likes stat">{{ photowalk.stats.likes }}</div>
+                                                </div>
+                                                <div class="pw-score">{{ photowalk.stats.score }}</div>
+                                    </div>
+                                {% load thumbnail %}
+                            {% thumbnail photowalk.photo.photo  "580x325" crop="center" as thumb %} 
+                                        <img src="{{ MEDIA_URL }}/{{ thumb.name }}" class="pw-img"/>                
+                                {% endthumbnail %}
+                                </div>
+                            </div>
+                        </div>
+                
+
+               {% endfor %}
+<script>

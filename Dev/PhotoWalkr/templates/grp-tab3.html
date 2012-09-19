@@ -1,0 +1,21 @@
+<div id="grp-pwalks">
+                                	<div class="grp-subhead">
+                                        <ul class="grp-subnav">
+                                            <li>Future</li>
+                                            <li>Past</li>
+                                        </ul>                                        
+                                    </div>
+                                    
+                                    <div class="grp-pw"></div>
+                                </div>
+                                
+                                   <script>
+								   $(".grp-subnav > li").eq(0).addClass("sel");
+								   $("div.grp-pw").load('/photowalklist/group/{{ group.id }}');
+                                $(".grp-subnav > li").click(function() {
+									var index = $(this).index();
+									$(this).parent().children().removeClass("sel");
+									$(this).addClass("sel");	
+									$("div.grp-pw").load('/photowalklist/group/{{ group.id }}');			
+								});
+								</script>

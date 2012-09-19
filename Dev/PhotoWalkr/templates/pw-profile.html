@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% block content %}
+				<!--The Photowalk Profile-->
+               	<div class="pw-head">
+                	<div class="pw-nm">{{ photowalk.name }}</div>
+                	<div class="pw-grp">{{ photowalk.group.name }}</div>
+                    <div class="pw-location">{{ photowalk.location }}</div>
+                    {% load humanize %}
+                    <div class="pw-date">{{ photowalk.date|date }}</div>
+                    
+                    <div class="pw-menu">
+                        <div class="pw-join">Join</div>
+                        <div class="pw-ph norm">Photos</div>
+                        <div class="pw-mem norm">Members</div>
+                	</div>
+                </div>
+                
+                <div class="pw-content">
+                	<div class="pw-users">
+                		{% load thumbnail %}
+                		{% thumbnail photowalk.group.display_image "58x58" crop="center" as thumb %}
+                    	<img src="{{ MEDIA_URL }}/{{ thumb.name }}" class="pw-group" title="{{ photowalk.group.name }}"/>
+                    	{% endthumbnail %}
+                        {% for user in photowalk.users %}
+                        	{% load thumbnail %}
+                        	{% thumbnail user.display_image "58x58" crop="center" as thumb %}
+                        	<img src="{{ MEDIA_URL }}/{{ thumb.name }}" title="{{user.user.username}}" class="pw-usr" id="{{ user.id }}" />
+                        	{% endthumbnail %}
+                        {% endfor %}                        
+                    </div>
+                    <div class="pw-main"></div>
+                </div>
+                
+                                
+		<!--the animation -->
+        <script>
+					$(".pw-menu > .pw-ph").removeClass("norm");
+					$(".pw-menu > .pw-ph").addClass("pw-select");
+					$("div.pw-main").load('tab/2/');
+					$(".pw-menu > div").click(function() {
+						var index = $(this).index();
+						$(this).parent().children().removeClass("pw-select");
+						$(this).parent().children().addClass("norm");
+						$(".pw-menu > .pw-join").removeClass("norm");
+						$(this).removeClass("norm");
+						$(this).addClass("pw-select");				
+						$("div.pw-main").load('tab/'+(index+1));	
+						$(".pw-users").children().removeClass("pw-usr-select");		
+				    });
+					
+					$(".pw-usr").click(function() {
+						var index = $(this).index();
+						$(this).parent().children().removeClass("pw-usr-select");
+						$(this).addClass("pw-usr-select");
+						var usr_id = $(this).attr("id");
+						$("div.pw-main").load('user/'+usr_id);
+						$(".pw-menu").children().removeClass("pw-select");
+						$(".pw-menu").children().addClass("norm");
+						$(".pw-menu > .pw-join").removeClass("norm");
+						$(".pw-menu > .pw-ph").addClass("pw-select");
+						$(".pw-menu > .pw-ph").removeClass("norm");	
+						$("html, body").animate({ scrollTop: 0 }, 300);	
+				    });
+					
+					$(".pw-group").click(function() {
+						var index = $(this).index();
+						$(this).parent().children().removeClass("pw-usr-select");
+						$(this).addClass("pw-usr-select");				
+						$("div.pw-main").load('tab/'+6);
+						$(".pw-menu").children().removeClass("pw-select");
+						$(".pw-menu").children().addClass("norm");
+						$(".pw-menu > .pw-join").removeClass("norm");
+						$(".pw-menu > .pw-ph").addClass("pw-select");			
+				    });					
+				</script>
+		<script type="text/javascript" src="{{ STATIC_URL }}js/animation.js"></script> 
+ 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+ 
+{% endblock %}

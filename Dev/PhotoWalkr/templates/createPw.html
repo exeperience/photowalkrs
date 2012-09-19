@@ -1,0 +1,184 @@
+{% extends "base.html" %}
+{% block content %}
+
+ 
+ 
+				<!--The Photowalk Profile-->
+               	<div class="pw-head">
+               		
+                	<div class="pw-nm">New Photowalk</div>
+                	<div class="pw-grp"></div>
+                    <div class="pw-location"></div>
+                    <div class="pw-date"></div>
+                    
+                    <div class="pw-menu">
+                        <!--div class="pw-join">Join</div>
+                        <div class="pw-hdt norm">Handout</div>
+                        <div class="pw-ph norm">Photos</div>
+                        <div class="pw-mem norm">Members</div-->
+                	</div>
+                </div>
+                
+                <div class="pw-content">
+                	<!--div class="pw-users">
+                    	<a href="create-pw.html"><img src="{{ STATIC_URL }}images/hpc.jpg" class="pw-group" title="Kolkata Weekend Shooters"/></a>
+                        <a href="create-pw-2.html"><img src="{{ STATIC_URL }}images/pro.jpg" class="pw-usr pw-admin" title="Photowalk Admin" /></a>
+                        
+                        <a href="create-pw-3.html"><img src="{{ STATIC_URL }}images/usr-disp.jpg" title="Scarlett Johansson" class="pw-usr"/></a>
+                        <a href="create-pw-4.html"><img src="{{ STATIC_URL }}images/pro.jpg" title="Miranda Kerr" class="pw-usr"/></a>
+                        
+                    </div-->
+                    <div class="pw-main">
+                    		<form action="" method="post" enctype="multipart/form-data" id="cr-pw-s4">{% csrf_token %}
+                                	  <div id="cr-pw-s4-hd" class="cr-pw-s4-hd">General Information</div> 
+                                      <div class="cr-pw-s4-exp">Fill in all the basic details about your photowalk.</div>
+                                      
+                                      <div class="pw-gen-info">
+                                        <input type="text" name="pwname" required placeholder="Name of photowalk" />
+                                        <input type="text" name="gname" required placeholder="Group name" />
+                                        <input type="text" name="theme" required placeholder="Theme" />
+                                        <input type="text" name="pw-datetime" id="pw-dtm" required placeholder="Date" />
+                                         
+                                      </div>
+                                      
+                                      <div class="pw-gmap-info">
+                                            <input type="text" id="pw-address" name="name" required placeholder="Location" />
+                                            <div id="pw-map"></div>	
+                                      </div>
+                                      
+                                    	<div class="pw-contt-info">
+                                        	<div class="map-area-hd">Contact Details</div> 
+                                            <div class="pw-contt-in">
+                                                    <input class="contt-name" type="text" name="contact-name" placeholder="Name" />
+                                                    <input class="contt-phone" type="text" name="contact-phone" placeholder="Phone number" />
+                                                    <a href="#" class="contt-add" data-action="add">+</a>
+                                                    <a href="#" class="contt-remove" data-action="delete">-</a>
+                                            </div>
+                                        </div>                                                                      
+                                	  <input type="submit" id="cr-pw-2-save" value="Save" />
+                            </form>
+                            		
+                                
+                    </div>
+                </div>
+                
+                                
+		<!--the animation -->
+         <script type="text/javascript" src="{{ STATIC_URL }}js/animation.js"></script> 
+                                        
+                                        <script type="text/javascript">
+			
+										$('#pw-dtm').datetimepicker({
+                                            numberOfMonths: 2,
+											dateFormat: 'DD, MM d, yy',
+											separator: ' at ',
+											hourGrid: 4,
+											minuteGrid: 10,
+											ampm: true,
+											timeFormat: 'h:mm TT'
+                                        });
+										</script>
+                                        
+                                        
+<script type='text/javascript'>//<![CDATA[ 
+$(window).load(function(){
+jQuery(function($) {
+
+    var multiTags = $(".pw-contt-in");
+
+    function handler(e) {
+        var jqEl = $(e.currentTarget);
+        var tag = jqEl.parent();
+        switch (jqEl.attr("data-action")) {
+        case "add":
+            tag.after(tag.clone().find("input").val("").end());
+            break;
+        case "delete":
+			var n = $(".pw-contt-in").length;					
+			if (n >1) {
+				tag.remove();
+				break;
+			}
+            
+        }
+        return false;
+    }
+
+    function save(e) {
+        var tags = multiTags.find("input.tag").map(function() {
+            return $(this).val();
+        }).get().join(',');
+        alert(tags);
+        return false;
+    }
+
+    multiTags.submit(save).find("a").live("click", handler);
+});
+});//]]>  
+
+</script>
+
+<script type="text/javascript">
+      $(function(){
+          
+          $('#pw-map').gmap3();
+
+          $('#pw-address').autocomplete({
+            source: function() {
+              $("#pw-map").gmap3({
+                action:'getAddress',
+                address: $(this).val(),
+                callback:function(results){
+                  if (!results) return;
+                  $('#pw-address').autocomplete(
+                    'display', 
+                    results,
+                    false
+                  );
+                }
+              });
+            },
+            cb:{
+              cast: function(item){
+                return item.formatted_address;
+              },
+              select: function(item) { 
+                var lat = item.geometry.location.lat(), 
+                    lng = item.geometry.location.lng(),
+                    dy = (1/60),
+                    dx = 1/(60* Math.cos(Math.PI * lat / 180)),
+                    miles = 0.1;
+				$("#pw-map").gmap3(
+                  {action:'clear', name:'marker'},
+                  {action:'addMarker',
+                    latLng:item.geometry.location,
+                    map:{center:true, zoom:16},
+					marker:{options:{icon: '{{ STATIC_URL }}images/footblack.png'}}
+					//infowindow:{options:{content: item.formatted_address}}
+                  }
+                ).gmap3({
+                  action: 'addMarker',
+                  latLng: [lat+miles*dy, lng],
+				  map:{zoom:16}, 
+				  marker:{options:{draggable: true, icon: new google.maps.MarkerImage('http://maps.gstatic.com/mapfiles/icon_green.png')}}
+                }).gmap3({
+                  action: 'addMarker',
+                  latLng: [lat-0.0013, lng-miles*dx],
+				  map:{zoom:16}, 
+				  marker:{options:{draggable: true, icon: '{{ STATIC_URL }}images/alligator.png'}}
+                }).gmap3({
+                  action: 'addMarker',
+                  latLng: [lat-0.0013, lng+miles*dx],
+				  map:{zoom:16}, 
+				  marker:{options:{draggable: true, icon: '{{ STATIC_URL }}images/alien.png'}}
+                });
+              }
+            }
+          })
+          .focus();
+          
+      });
+    </script>       
+
+
+{% endblock %}

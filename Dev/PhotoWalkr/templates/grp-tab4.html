@@ -1,0 +1,25 @@
+<div id="grp-about">
+	<div class="head-line">Bio<img class="edit" title="Edit" src="images/edit-icon.png" /></div>
+    <div class="grp-bio">
+    	<p>Lorem ipsum generatoeo f ia am awesome Lorem ipsum generatoeo f ia am awesome Lorem ipsum generatoeo f ia am awesomeLorem ipsum.</p>
+        <p>Lorem ipsum generatoeo f ia am awesome Lorem ipsum generatoeo f ia am awesome Lorem ipsum generatoeo f ia am awesomeLorem ipsum.</p>
+    </div> 
+    
+    <div class="head-line">Interests<img class="edit" title="Edit" src="images/edit-icon.png" /></div>
+    <div class="grp-tags">
+    	<div class="grp-tag">Night Photogaphy</div>
+        <div class="grp-tag">Panaromas</div>
+        <div class="grp-tag">Wedding Photogaphy</div>
+    </div>
+</div>
+
+
+   								<script>
+								$(".grp-subnav > li").eq(0).addClass("sel");
+                                $(".grp-subnav > li").click(function() {
+									var index = $(this).index();
+									$(this).parent().children().removeClass("sel");
+									$(this).addClass("sel");
+									$("div.grp-feature").load('grp-tab4.html');				
+								});
+								</script>

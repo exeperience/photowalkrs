@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+
+{% block content %} 
+<script type="text/javascript">
+
+jQuery(document).ready(function() {
+    // Initialise the first and second carousel by class selector.
+	// Note that they use both the same configuration options (none in this case).
+	jQuery('.first-and-second-carousel').jcarousel();
+});
+
+</script>
+
+				<!--Image Profile Container-->
+                <div class="ph-profile">
+                		<div class="ph-content">
+                		        {% load thumbnail %}
+    	                        {% thumbnail photo.userprofile.display_image  "58x58" crop="center" as thumb %}
+                        		<img src="{{ MEDIA_URL }}/{{ thumb.name }}" class="usr-disp"/>
+                        		{% endthumbnail %}
+                                <div class="ph-info">
+                                    <h2 class="img-title">{{ photo.title }}</h2>
+                                    <h3 class="usr-name">{{ photo.user.username }}</h3>
+                                </div>
+                                {% if photo.stats.is_photowalks %}
+                                <div class="ph-pw">
+                                    <h2>{{ photo.photowalk.name }}</h2>
+                                    <h3>{{ photo.photowalk.group.name }}</h3>
+                                </div>
+                                {% endif %}
+                                	{% load thumbnail %}
+    	                            {% thumbnail photo.photo  "800" crop="center" as thumb %}
+                                    <div class="ph-disp"><img src="{{ MEDIA_URL }}/{{ thumb.name }}" /></div>
+                                    {% endthumbnail %}
+                                <p>{{ photo.description }}</p>
+                                <div class="ph-comments">
+                                	<div class="comment-head"><span></span> Comments coming soon</div>
+                                    <div class="comment-hold">
+                                    </div>
+                                </div>
+                        </div>
+                        <div class="ph-sidebar">
+                        	<div class="ph-up">
+                              <div class="like-button" id="like-button">Like</div>
+                              <div class="ph-views ph-stats">{{ photo.stats.views }}</div>
+                              <div class="ph-likes ph-stats">{{ photo.stats.likes }}</div>
+                              <div class="ph-scr"><span>{{ photo.stats.score }}</span></br>Photo Score</div>
+                              <script>$(document).ready(function() {
+                                $('#like-button').click(function() {
+                                  $.get('/like/photo/{{ photo.id }}', function(data){});
+                                });
+                              });</script>
+                            </div>
+                            <div class="ph-tags">
+                            	<div class="ph-tag">{{ photo.tags }}</div>
+                            </div>
+                            <div class="ph-stts">
+                            	<div class="ph-stt camera">Camera</div>
+                                <div class="ph-det">{{ photo.info.camera }}</div>
+                                
+                                <div class="ph-stt focal-length">Focal Length</div>
+                                <div class="ph-det">{{ photo.info.focallength }}</div>
+                                
+                                <div class="ph-stt shutter-speed">Shutter Speed</div>
+                                <div class="ph-det">{{ photo.info.shutterspeed }}</div>
+                                
+                                <div class="ph-stt aperture">Aperture</div>
+                                <div class="ph-det">{{ photo.info.aperture }}</div>
+                                
+                                <div class="ph-stt iso-film">ISO/Film</div>
+                                <div class="ph-det">{{ photo.info.iso }}</div>
+                                
+                                <div class="ph-stt category">Category</div>
+                                <div class="ph-det">{{ photo.info.category }}</div>
+                                
+                                <div class="ph-stt uploaded">Uploaded</div>
+                                {% load humanize %}
+                                 <div class="ph-det">{{ photo.create_time|timesince }}</div>
+                                 
+                                <div class="ph-stt taken">Taken</div>
+                                <div class="ph-det">{{ photo.info.taken }}</div>
+                                
+                                <!--div class="ph-stt copyright">Copyright</div>
+                                <div class="ph-det"></div -->
+                   
+                            </div>
+                            {% if photo.stats.is_photowalks %}
+                            <div class="ph-more"><span id="bld">More</span> from this <span>photowalk</span></div>
+                            <ul id="first-carousel" class="first-and-second-carousel jcarousel-skin-tango">
+   								{% for pic in photo.photowalkphotos %}
+   								<li>
+   								{% thumbnail pic.photo  "90x60" crop="center" as thumb %}
+   								<img src="{{ MEDIA_URL }}/{{ thumb.name }}" width="90" height="60" alt="" />
+   								{% endthumbnail %}
+   								</li>
+   								{% endfor %}
+  							</ul>
+  							{% endif %}
+                            <div class="ph-more"><span id="bld">More</span> by <span>{{ photo.user.username }}</span></div>
+                            <ul id="first-carousel" class="first-and-second-carousel jcarousel-skin-tango">
+                            {% for pic in photo.userphotos %}
+   								<li>
+   								{% thumbnail pic.photo  "90x60" crop="center" as thumb %}
+   								<img src="{{ MEDIA_URL }}/{{ thumb.name }}" width="90" height="60" alt="" />
+   								{% endthumbnail %}
+   								</li>
+   							{% endfor %}
+  							</ul>
+                        </div>
+                </div>
+                
+ 
+ 		<!--the animation -->
+		<script type="text/javascript" src="js/animation.js"></script>
+		<!--script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script-->
+ 
+{% endblock %}
